@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รวมลิงก์โปรแกรม</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Noto Sans Thai', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+  <!-- HEADER -->
+  <div class="bg-gradient-to-r from-pink-100 to-purple-100 p-6 shadow-md rounded-xl m-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-blue-900">📌 รวมลิงก์โปรแกรม</h1>
+
+    <div class="space-x-2">
+      <button onclick="manual()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+        📖 คู่มือ
+      </button>
+      <button onclick="adminLogin()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+        🔐 Admin Login
+      </button>
+    </div>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="m-4">
+    <input type="text" id="search" placeholder="พิมพ์เพื่อค้นหาโปรแกรม..."
+      class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-400">
+  </div>
+
+  <!-- CARD GRID -->
+  <div id="cardContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+
+    <!-- CARD 1 -->
+    <div class="card bg-blue-200 p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+      onclick="openLink('https://example.com')">
+      <div class="text-4xl text-center">🌐</div>
+      <h2 class="text-lg font-bold text-center mt-2">ระบบส่งคำร้อง</h2>
+      <p class="text-center text-sm">ระบบส่งคำร้องคดี</p>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card bg-purple-200 p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+      onclick="openLink('https://example.com')">
+      <div class="text-4xl text-center">🎵</div>
+      <h2 class="text-lg font-bold text-center mt-2">ร้องเพลงคาราโอเกะ</h2>
+      <p class="text-center text-sm">ระบบเพลง</p>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card bg-green-200 p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+      onclick="openLink('https://example.com')">
+      <div class="text-4xl text-center">📷</div>
+      <h2 class="text-lg font-bold text-center mt-2">จัดการไฟล์ภาพ</h2>
+      <p class="text-center text-sm">รองรับ iPhone / lh3</p>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card bg-yellow-200 p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+      onclick="openLink('https://example.com')">
+      <div class="text-4xl text-center">💻</div>
+      <h2 class="text-lg font-bold text-center mt-2">Telegram Bot</h2>
+      <p class="text-center text-sm">จัดการ Token / Chat ID</p>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="card bg-pink-200 p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+      onclick="openLink('https://example.com')">
+      <div class="text-4xl text-center">📁</div>
+      <h2 class="text-lg font-bold text-center mt-2">คลินิกให้คำปรึกษา</h2>
+      <p class="text-center text-sm">บริการประชาชน</p>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card bg-cyan-200 p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
+      onclick="openLink('https://example.com')">
+      <div class="text-4xl text-center">📊</div>
+      <h2 class="text-lg font-bold text-center mt-2">จองตรวจล่วงหน้า</h2>
+      <p class="text-center text-sm">ระบบคิว</p>
+    </div>
+
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+
+    function manual() {
+      Swal.fire({
+        icon: 'info',
+        title: 'คู่มือการใช้งาน',
+        text: 'คลิกที่การ์ดเพื่อเข้าใช้งานระบบ',
+        confirmButtonText: 'เข้าใจแล้ว'
+      });
+    }
+
+    function adminLogin() {
+      Swal.fire({
+        title: 'Admin Login',
+        input: 'password',
+        inputPlaceholder: 'กรอกรหัสผ่าน',
+        showCancelButton: true,
+        confirmButtonText: 'เข้าสู่ระบบ'
+      }).then((result) => {
+        if (result.value === '1234') {
+          Swal.fire('สำเร็จ!', 'เข้าสู่ระบบแล้ว', 'success');
+        } else if (result.value) {
+          Swal.fire('ผิด!', 'รหัสไม่ถูกต้อง', 'error');
+        }
+      });
+    }
+
+    // SEARCH FILTER
+    document.getElementById('search').addEventListener('keyup', function () {
+      let value = this.value.toLowerCase();
+      let cards = document.querySelectorAll('.card');
+
+      cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+        card.style.display = text.includes(value) ? 'block' : 'none';
+      });
+    });
+
+  </script>
+
+</body>
+</html>
